@@ -11,12 +11,14 @@
          <span class="info-box-icon bg-yellow"><i class="ion ion-ios-people-outline"></i></span>
          <div class="info-box-content">
             <span class="info-box-text">Penduduk</span>
-         
-               
-               <span class="info-box-number">3</span>
-
-               
-
+            <?php
+            require('../include/connection.php');
+            $sql = mysqli_query($con, "SELECT * FROM t_pemilih");
+            $count = mysqli_num_rows($sql);
+            echo '<span class="info-box-number">'. $count . '</span>';
+                  
+            
+            ?>
          </div>
          <!-- /.info-box-content -->
       </div>
@@ -30,7 +32,12 @@
 
             <div class="info-box-content">
               <span class="info-box-text">Jumlah Rt</span>
-              <span class="info-box-number">5</span>
+               <?php
+                  require('../include/connection.php');
+                  $sql = mysqli_query($con, "SELECT * FROM t_kelas");
+                  $count = mysqli_num_rows($sql);
+                  echo '<span class="info-box-number">'. $count . '</span>';
+               ?>
             </div>
             <!-- /.info-box-content -->
           </div>
