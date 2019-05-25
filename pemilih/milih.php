@@ -77,44 +77,7 @@ if(!isset($_SESSION['siswa'])) {
 
          echo '</div>';
          ?>
-
-    
-
-        <center><h2>KANDIDAT CALON RT ASGARD</h2></center>
-    <div class="row">
-        <div class="col-md-6">
-            <center><h3>CALON 01</h3>
-                <img src="../assets/img/default.png" class="img-responsive img-thumbnail" />
-                <p><h5><strong>NAMA CALON RT</strong></h5></p>
-                <p>
-               <a href="#" class="btn btn-primary" >Lihat Visi Misi <i class="glyphicon glyphicon-play"></i></a>
-                </p>
-                <p>
-               <a href="#" class="btn btn-danger" >Beri Suara<i class="glyphicon glyphicon-play"></i></a>
-                </p>
-            </center>
-            
-        </div>
-
-        <div class="col-md-6">
-             <center><h3>CALON 02</h3>
-                <img src="../assets/img/default.png" class="img-responsive img-thumbnail" />
-                <p><h5><strong>NAMA CALON RT</strong></h5></p>
-                <p>
-               <a href="#" class="btn btn-primary" >Lihat Visi Misi <i class="glyphicon glyphicon-play"></i></a>
-                </p>
-                <p>
-               <a href="#" class="btn btn-danger" >Beri Suara<i class="glyphicon glyphicon-play"></i></a>
-                </p>
-            </center>
-        </div>
-      </div>
-
-    </div>
-
-    
-
- 
+         
     <script src="../assets/js/bootstrap.min.js"></script>
   </body>
 </body>

@@ -8,7 +8,7 @@ $sql  = $con->prepare("SELECT * FROM t_calon_rt WHERE id_rt = ?") or die($con->e
 $sql->bind_param('i', $id);
 $sql->execute();
 $sql->store_result();
-$sql->bind_result($id, $nama, $foto, $visi, $misi, $suara, $periode);
+$sql->bind_result($id, $nama, $foto, $visi, $misi, $suara, $periode, $kls);
 $sql->fetch();
 ?>
 <h3>Edit Data Calon</h3>

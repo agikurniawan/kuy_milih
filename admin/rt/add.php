@@ -37,6 +37,25 @@ if(!isset($_SESSION['id_admin'])) {
                 </div>
             </div>
 
+            <div class="form-group">
+                <label class="col-sm-3 control-label">Kelas</label>
+                <div class="col-md-8">
+                    <select name="kelas" required="kelas" class="form-control">
+                        <option value="#">-- Pilih Kelas --</option>
+                        <?php
+                            $kelas = mysqli_query($con, "SELECT * FROM t_kelas");
+                            while ($key = mysqli_fetch_array($kelas)) {
+                            ?>
+                                <option value="<?php echo $key['id_kelas']; ?>">
+                                    <?php echo $key['nama_kelas']; ?>
+                                </option>
+                                <?php
+                            }
+                        ?>
+                    </select>
+                </div>
+            </div>
+
             <div class="form-group" style="padding-top:20px;">
                 <div class="col-md-offset-3 col-md-8">
                     <button type="submit" name="add_rt" value="Tambah Calon" class="btn btn-success">
