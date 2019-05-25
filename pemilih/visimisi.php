@@ -13,55 +13,53 @@
 </head>
 <body>
     <div class="container">
-      <div class="row">
-      <nav class="navbar navbar-default">
-          <div class="container-fluid">
-            <div class="navbar-header">
-              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-              </button>
-              <a class="navbar-brand" href="">LOGO</a>
-            </div>
-            <div id="navbar" class="navbar-collapse collapse">
-              <ul class="nav navbar-nav">
-                <!--ACCESS MENUS FOR ADMIN-->
-                  <li class="active"><a href="#">Dashboard</a></li>
-                  <li><a href="">login</a></li>
-                  <li><a href="">register</a></li>
-                
-              </ul>
-              <ul class="nav navbar-nav navbar-right">
-                <li><a href="#">Assalamualaikum</a></li>
-              </ul>
-            </div><!--/.nav-collapse -->
-          </div><!--/.container-fluid -->
-        </nav>
+      <?php
+         define('BASEPATH', dirname(__FILE__));
+         session_start();
+
+         if(!isset($_SESSION['siswa'])) {
+            header('location:../');
+         }
+
+         if(isset($_GET['id'])) {
+
+            require('../include/connection.php');
+
+            $sql = $con->prepare("SELECT * FROM t_calon_rw WHERE id_rw = ?") or die($con->error);
+            $sql->bind_param('i', $_GET['id']);
+            $sql->execute();
+            $sql->store_result();
+            $sql->bind_result($id, $nama, $foto, $visi, $misi, $suara, $periode);
+            $sql->fetch();
+            ?>
  
         <div class="row">
             <div class="container-fluid">
-                 <center><h3>CALON RT/RW no SEKIAN</h3>
-                <img src="../assets/img/default.png" class="img-responsive img-thumbnail" />
-                <p><h5><strong>NAMA CALON</strong></h5></p>
+                 <center><h3>CALON RW No Urut <br>0<?php echo $id; ?></h3>
+                <img src="../assets/img/rw/<?php echo $foto; ?>" class="img-responsive img-thumbnail" style="width:500px; hight:500px;" />
+                <p><h5><strong><?php echo $nama; ?></strong></h5></p>
                 <p>
-               <a href="#" class="btn btn-danger" >Beri Suara<i class="glyphicon glyphicon-play"></i></a>
+                <button onclick="window.history.go(-1)" class="btn btn-warning">Kembali</button>
+               <a href="./submit.php?id=<?php echo $id; ?>&s=<?php echo $suara; ?>" class="btn btn-danger" >Beri Suara<i class="glyphicon glyphicon-play"></i></a>
                 </p>
             </center>
             <p>
             <h3><strong>Visi: </strong></h3>
-            <p><h5>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat dicta exercitationem quia, atque laborum qui reprehenderit magni voluptatum commodi esse aspernatur nulla dolorem reiciendis minima! Asperiores repudiandae ea reprehenderit quidem?</h5></p>
+            <p><h5><?php echo $visi; ?></h5></p>
             </p>
 
             <p>
             <h3><strong>Misi: </strong></h3>
-            <p><h5>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat dicta exercitationem quia, atque laborum qui reprehenderit magni voluptatum commodi esse aspernatur nulla dolorem reiciendis minima! Asperiores repudiandae ea reprehenderit quidem?</h5></p>
+            <p><h5><?php echo $misi; ?></h5></p>
             </p>
             </div>
         
         </div>
- 
+        <?php
+
+         }
+         ?>
+
     <script src="../assets/js/bootstrap.min.js"></script>
   </body>
 </body>

@@ -1,3 +1,11 @@
+<?php
+define("BASEPATH", dirname(__FILE__));
+session_start();
+if(!isset($_SESSION['siswa'])) {
+   header('location:./index.php');
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,63 +21,62 @@
 </head>
 <body>
     <div class="container">
-      <div class="row">
-      <nav class="navbar navbar-default">
-          <div class="container-fluid">
-            <div class="navbar-header">
-              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-              </button>
-              <a class="navbar-brand" href="">LOGO</a>
-            </div>
-            <div id="navbar" class="navbar-collapse collapse">
-              <ul class="nav navbar-nav">
-                <!--ACCESS MENUS FOR ADMIN-->
-                  <li class="active"><a href="#">Dashboard</a></li>
-                  <li><a href="">login</a></li>
-                  <li><a href="">register</a></li>
-                
-              </ul>
-              <ul class="nav navbar-nav navbar-right">
-                <li><a href="#">Assalamualaikum</a></li>
-              </ul>
-            </div><!--/.nav-collapse -->
-          </div><!--/.container-fluid -->
-        </nav>
- 
-      </div>
-    <center><h2>KANDIDAT CALON RW ASGARD</h2></center>
-    <div class="row" style="margin-bottom:150px;">
+    <?php
+         require('../include/connection.php');
+
+         $thn     = date('Y');
+         $dpn     = date('Y') + 1;
+         $periode = $thn.'/'.$dpn;
+
+         $sql = $con->prepare("SELECT * FROM t_calon_rw WHERE periode = ?") or die($con->error);
+         $sql->bind_param('s', $periode);
+         $sql->execute();
+         $sql->store_result();
+         if ($sql->num_rows() > 0) {
+            $numb = $sql->num_rows();
+            echo '<div class="text-center" style="padding-top:20px;">
+                     <h2>Daftar Calon Periode '.$periode.'</h2>
+                  </div>
+                  <hr />';
+
+            echo '<div class="row">';
+
+            echo '<div class="col-md-10 col-md-offset-1">';
+
+               for ($i = 1; $i <= $numb; $i++) {
+                  $sql->bind_result($id, $nama, $foto, $visi, $misi, $suara, $periode);
+                  $sql->fetch();
+         ?>
+
+    <div class="row" style="margin-bottom:100px;">
         <div class="col-md-6">
-            <center><h3>CALON 01</h3>
-                <img src="../assets/img/default.png" class="img-responsive img-thumbnail" />
-                <p><h5><strong>NAMA CALON RW</strong></h5></p>
+            <center><h3>Calon RW No Urut<br>0<?php echo $i; ?></h3>
+                <img src="../assets/img/rw/<?php echo $foto; ?>" class="img-responsive img-thumbnail" />
+                <p><h5><strong><?php echo $nama; ?></strong></h5></p>
                 <p>
-               <a href="../pemilih/visimisi.php" class="btn btn-primary" >Lihat Visi Misi <i class="glyphicon glyphicon-play"></i></a>
+               <a href="../pemilih/visimisi.php?id=<?php echo $id; ?>" class="btn btn-primary" >Lihat Visi Misi <i class="glyphicon glyphicon-play"></i></a>
                 </p>
                 <p>
-               <a href="#" class="btn btn-danger" >Beri Suara<i class="glyphicon glyphicon-play"></i></a>
+               <a href="./submit.php?id=<?php echo $id; ?>&s=<?php echo $suara; ?>" class="btn btn-danger" >Beri Suara<i class="glyphicon glyphicon-play"></i></a>
                 </p>
             </center>
             
         </div>
 
-        <div class="col-md-6">
-             <center><h3>CALON 02</h3>
-                <img src="../assets/img/default.png" class="img-responsive img-thumbnail" />
-                <p><h5><strong>NAMA CALON RW</strong></h5></p>
-                <p>
-               <a href="#" class="btn btn-primary" >Lihat Visi Misi <i class="glyphicon glyphicon-play"></i></a>
-                </p>
-                <p>
-               <a href="#" class="btn btn-danger" >Beri Suara<i class="glyphicon glyphicon-play"></i></a>
-                </p>
-            </center>
-        </div>
-      </div>
+        <?php
+               }
+
+            echo '</div>';
+
+         } else {
+
+            echo '<div class="callout warning">
+                     <h2>Belum Ada Calon Ketua</h2>
+                  </div>';
+         }
+
+         echo '</div>';
+         ?>
 
     
 
