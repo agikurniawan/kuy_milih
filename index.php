@@ -39,11 +39,11 @@
                 
                    <li class="dropdown"><a href="#">Hasil Pemilihan</a>
                     <ul class="isi-dropdown">
-                      <li><a href="./pemilih/">RW</a></li>
-                      <li><a href="./pemilih_rt01/">RT 01</a></li>
-                      <li><a href="./pemilih_rt02/">RT 02</a></li>
-                      <li><a href="./pemilih_rt03/">RT 03</a></li>
-                      <li><a href="./pemilih_rt04/">RT 04</a></li>
+                      <li><a href="./pemilih/dashboard.php?page=perolehan">RW</a></li>
+                      <li><a href="./pemilih_rt01/dashboard.php?page=perolehan">RT 01</a></li>
+                      <li><a href="./pemilih_rt02/dashboard.php?page=perolehan">RT 02</a></li>
+                      <li><a href="./pemilih_rt03/dashboard.php?page=perolehan">RT 03</a></li>
+                      <li><a href="./pemilih_rt04/dashboard.php?page=perolehan">RT 04</a></li>
                     </ul>
                   </li>
                 
