@@ -27,7 +27,7 @@ include('../include/connection.php');
       <div class="row">
          <?php
          for ($i = 0; $i < $htg; $i++) {
-            $get->bind_result($id, $nama, $foto, $visi, $misi, $suara, $per);
+            $get->bind_result($id, $nama,$foto,  $visi, $misi, $kelas_rt, $suara, $per);
             $get->fetch();
          ?>
          <div class="col-md-3">

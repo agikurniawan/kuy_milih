@@ -9,12 +9,13 @@ if (!isset($_POST['add_rt'])) {
    $nama     = $_POST['nama'];
    $visi     = $_POST['visi'];
    $misi     = $_POST['misi'];
+   $kelas    = $_POST['kelas_rt'];
    $foto     = $_FILES['foto'];
    $thn      = date('Y');
    $dpn      = date('Y') + 1;
    $periode  = $thn.'/'.$dpn;
 
-   if ($nama == '' || $visi == '' || $misi == '') {
+   if ($nama == '' || $visi == '' || $misi == '' || $kelas == '') {
 
       echo '<script type="text/javascript">alert("Semua form harus terisi");window.history.go(-1);</script>';
 
@@ -46,8 +47,8 @@ if (!isset($_POST['add_rt'])) {
 
                include('../../include/connection.php');
 
-               $sql = $con->prepare("INSERT INTO t_calon_rt(nama_calon, foto, visi, misi, periode) VALUES(?, ?, ?, ?, ?)") or die($con->error);
-               $sql->bind_param('sssss', $nama, $newName, $visi, $misi, $periode);
+               $sql = $con->prepare("INSERT INTO t_calon_rt(nama_calon, foto, visi, misi, kelas_rt, periode) VALUES(?, ?, ?, ?, ?, ?)") or die($con->error);
+               $sql->bind_param('sssss', $nama, $newName, $visi, $misi, $kelas, $periode);
                $sql->execute();
 
                header('location:../dashboard.php?page=rt');

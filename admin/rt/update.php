@@ -11,8 +11,9 @@ $nama = $_POST['nama'];
 $foto = $_FILES['foto'];
 $visi = $_POST['visi'];
 $misi = $_POST['misi'];
+$kelas= $_POST['kelas_rt']; 
 $f    = $_POST['f'];
-if ($nama == '' || $visi == '' || $misi == '') {
+if ($nama == '' || $visi == '' || $misi == '' || $kelas == '') {
 
    echo '<script type="text/javascript">alert("Semua form harus terisi");window.history.go(-1);</script>';
 
@@ -56,8 +57,8 @@ if ($nama == '' || $visi == '' || $misi == '') {
 
             unlink('../../assets/img/rt/'.$f);
 
-            $sql = $con->prepare("UPDATE t_calon_rt SET nama_calon = ? , foto = ?, visi = ?, misi = ? WHERE id_rt = ?") or die($con->error);
-            $sql->bind_param('sssss', $nama, $newName, $visi, $misi, $id);
+            $sql = $con->prepare("UPDATE t_calon_rt SET nama_calon = ? , foto = ?, visi = ?, misi = ?, kelas_rt = ? WHERE id_rt = ?") or die($con->error);
+            $sql->bind_param('sssss', $nama, $newName, $visi, $misi, $kelas, $id);
             $sql->execute();
 
             header('location:../dashboard.php?page=rt');
@@ -72,8 +73,8 @@ if ($nama == '' || $visi == '' || $misi == '') {
 
    } else {
 
-      $sql = $con->prepare("UPDATE t_calon_rt SET nama_calon = ?, visi = ?, misi = ? WHERE id_rt = ?") or die($con->error);
-      $sql->bind_param('ssss', $nama, $visi, $misi, $id);
+      $sql = $con->prepare("UPDATE t_calon_rt SET nama_calon = ?, visi = ?, misi = ?, kelas_rt = ? WHERE id_rt = ?") or die($con->error);
+      $sql->bind_param('ssss', $nama, $visi, $misi, $kelas, $id);
       $sql->execute();
 
       header('location:../dashboard.php?page=rt');

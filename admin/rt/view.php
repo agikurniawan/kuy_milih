@@ -8,7 +8,7 @@ $sql = $con->prepare("SELECT * FROM t_calon_rt WHERE id_rt = ?") or die($con->er
 $sql->bind_param('i', $id);
 $sql->execute();
 $sql->store_result();
-$sql->bind_result($id, $nama, $foto, $visi, $misi, $suara, $periode);
+$sql->bind_result($id, $nama ,$foto, $visi, $misi, $suara, $kelas_rt, $periode);
 $sql->fetch();
 ?>
 <h3>Detail Calon</h3>
@@ -25,6 +25,10 @@ $sql->fetch();
             <tr>
                <td width="150">Nama Calon</td>
                <td>: <?php echo $nama; ?></td>
+            </tr>
+            <tr>
+               <td>Nomer RT</td>
+               <td>: <?php echo $kelas_rt; ?></td>
             </tr>
             <tr>
                <td>Visi</td>

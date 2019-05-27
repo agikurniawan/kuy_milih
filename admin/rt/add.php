@@ -1,6 +1,7 @@
 <?php
 if(!isset($_SESSION['id_admin'])) {
    header('location: ../');
+
 }
 ?>
 <h3>Tambah Calon Rt</h3>
@@ -13,6 +14,25 @@ if(!isset($_SESSION['id_admin'])) {
                 <label class="col-sm-3 control-label">Nama Calon</label>
                 <div class="col-md-6">
                     <input type="text" name="nama" class="form-control" required="Nama" />
+                </div>
+            </div>
+
+             <div class="form-group">
+                <label class="col-sm-3 control-label">Nomer RT</label>
+                <div class="col-md-6">
+                    <select name="kelas_rt" class="form-control">
+                    <option value="#">-- Pilih Kelas --</option>
+                        <?php
+                            $kelas = mysqli_query($con, "SELECT * FROM t_kelas");
+                            while ($key = mysqli_fetch_array($kelas)) {
+                            ?>
+                                <option value="<?php echo $key['nama_kelas']; ?>">
+                                    <?php echo $key['nama_kelas']; ?>
+                                </option>
+                                <?php
+                            }
+                        ?> 
+                    </select>
                 </div>
             </div>
 

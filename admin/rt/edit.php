@@ -8,7 +8,7 @@ $sql  = $con->prepare("SELECT * FROM t_calon_rt WHERE id_rt = ?") or die($con->e
 $sql->bind_param('i', $id);
 $sql->execute();
 $sql->store_result();
-$sql->bind_result($id, $nama, $foto, $visi, $misi, $suara, $periode);
+$sql->bind_result($id, $nama, $foto, $visi, $misi, $kelas_rt, $suara, $periode);
 $sql->fetch();
 ?>
 <h3>Edit Data Calon</h3>
@@ -28,6 +28,25 @@ $sql->fetch();
                 <label class="col-sm-3 control-label">Nama Calon</label>
                 <div class="col-md-8">
                     <input type="text" class="form-control" name="nama" required="Nama" value="<?php echo $nama; ?>"/>
+                </div>
+            </div>
+
+             <div class="form-group">
+                <label class="col-sm-3 control-label">Nomer RT</label>
+                <div class="col-md-6">
+                    <select name="kelas_rt" class="form-control">
+                    <option value="<?php echo $nama_kelas;?>">-- Pilih Kelas --</option>
+                        <?php
+                            $kelas = mysqli_query($con, "SELECT * FROM t_kelas");
+                            while ($key = mysqli_fetch_array($kelas)) {
+                            ?>
+                                <option value="<?php echo $key['nama_kelas']; ?>">
+                                    <?php echo $key['nama_kelas']; ?>
+                                </option>
+                                <?php
+                            }
+                        ?> 
+                    </select>
                 </div>
             </div>
 
