@@ -1,91 +1,123 @@
-<?php
-define('BASEPATH', dirname(__FILE__));
-session_start();
-
-if (isset($_SESSION['siswa'])) {
-   header('location:./pemilih/milih.php');
-}
-
-if (isset($_POST['submit'])) {
-
-   require('include/connection.php');
-
-   $nis     = $_POST['nik'];
-   $thn     = date('Y');
-   $dpn     = date('Y') + 1;
-   $periode = $thn.'/'.$dpn;
-
-   $cek = $con->prepare("SELECT * FROM t_hasil_pemilih WHERE nis = ? && periode = ?") or die($con->error);
-   $cek->bind_param('ss', $nis, $periode);
-   $cek->execute();
-   $cek->store_result();
-
-   if ($cek->num_rows() > 0) {
-
-      echo '<script type="text/javascript">alert("Anda sudah memberikan suara");</script>';
-
-   } else {
-
-      $sql = $con->prepare("SELECT * FROM t_pemilih WHERE id_pemilih = ? && pemilih = 'Y'") or die($con->error);
-      $sql->bind_param('s', $nis);
-      $sql->execute();
-      $sql->store_result();
-
-      if ($sql->num_rows() > 0 ) {
-         $sql->bind_result($id, $user, $kelas, $jk, $pemilih);
-         $sql->fetch();
-
-         $_SESSION['siswa'] = $id;
-
-         header('location:./pemilih/milih.php');
-
-      } else {
-
-         echo '<script type="text/javascript">alert("Anda tidak berhak memberikan suara");</script>';
-
-      }
-
-   }
-
-}
-
-
-?>
 <!DOCTYPE html>
-<html>
-      <head>
-            <meta charset="utf-8">
-            <title>Kuy ~ Milih</title>
-            <link rel="stylesheet" href="./assets/css/bootstrap.min.css"/>
-            <link rel="stylesheet" href="./assets/css/custom.css"/>
-            
-      </head>
-      <body>
-            <div class="container">
-                  <div class="row">
-                        <div class="col-md-12">
-                        <?php
-                        if (isset($_GET['page'])) {
-                        switch ($_GET['page']) {
-                              case 'thanks':
-                              include('./pemilih/thanks.php');
-                              break;
-
-                              default:
-                              include('./form.php');
-                              break;
-                        }
-                        } else {
-                        include('./pemilih/login.php');
-                        }
-                        ?>
-
-                              
-                        </div>
-                  </div>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Welcome</title>
+    <link href="./assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="./assets/css/dp.css" rel="stylesheet">
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+      <nav class="navbar navbar-default">
+          <div class="container-fluid">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="#">LOGO</a>
+              
             </div>
-            <script type="text/javascript" src="./assets/js/jquery-2.2.3.min.js"></script>
-            <script type="text/javascript" src="./assets/js/jquery-cycle.min.js"></script>
-            
-      </body>
+            <div id="navbar" class="navbar-collapse collapse">
+              <ul class="nav navbar-nav">
+                <!--ACCESS MENUS FOR ADMIN-->
+                
+                  <li class="active"><a href="#">Home</a></li>
+                  <li><a href="./pemilih/">Pemilihan RW</a></li>
+
+                  <li class="dropdown"><a href="#">Pemilihan RT</a>
+                    <ul class="isi-dropdown">
+                      <li><a href="./pemilih_rt01/">Pemilihan RT 01</a></li>
+                      <li><a href="./pemilih_rt02/">Pemilihan RT 02</a></li>
+                      <li><a href="./pemilih_rt03/">Pemilihan RT 03</a></li>
+                      <li><a href="./pemilih_rt04/">Pemilihan RT 04</a></li>
+                    </ul>
+                  </li>
+                
+                   <li class="dropdown"><a href="#">Hasil Pemilihan</a>
+                    <ul class="isi-dropdown">
+                      <li><a href="./pemilih/">RW</a></li>
+                      <li><a href="./pemilih_rt01/">RT 01</a></li>
+                      <li><a href="./pemilih_rt02/">RT 02</a></li>
+                      <li><a href="./pemilih_rt03/">RT 03</a></li>
+                      <li><a href="./pemilih_rt04/">RT 04</a></li>
+                    </ul>
+                  </li>
+                
+              </ul>
+              
+            </div><!--/.nav-collapse -->
+          </div><!--/.container-fluid -->
+        </nav>
+
+        <div class="col-md-9">
+   <h3>Daftar RT</h3>
+</div>
+<!-- <div class="col-md-3" style="padding-top:10px;">
+   <a class="btn btn-primary" href="?page=data_rt&action=tambah">Tambah Kelas</a>
+</div> -->
+<div style="clear:both"></div>
+<hr />
+<div class="row">
+   <div class="col-md-8">
+      <table class="table table-striped">
+         <thead>
+            <tr>
+               <th width="80px" style="text-align:center;">#</th>
+               <th style="text-align:center;">Kelas RT</th>
+               <th width="150px" style="text-align:center;">Jumlah Penduduk</th>
+               <!-- <th width="200px" style="text-align:center;">Opsi</th> -->
+            </tr>
+         </thead>
+         <tbody>
+            <?php
+            include './include/connection.php';
+            $sql = mysqli_query($con, "SELECT a.*, (SELECT COUNT(id_kelas) FROM t_pemilih WHERE id_kelas = a.id_kelas) AS jumlah FROM t_kelas a ORDER BY a.id_kelas ASC");
+
+            if (mysqli_num_rows($sql) > 0) {
+
+               while($data = mysqli_fetch_array($sql)) {
+                  ?>
+                  <tr>
+                     <td style="text-align:center; vertical-align:middle">
+                        <?php echo $data['id_kelas']; ?>
+                     </td>
+                     <td style="text-align:center; vertical-align:middle">
+                        <?php echo $data['nama_kelas']; ?>
+                     </td>
+                     <td style="text-align:center; vertical-align:middle">
+                        <?php echo $data['jumlah']; ?> Orang
+                     </td>
+                     <!-- <td style="text-align:center;">
+                        <a href="?page=data_rt&action=edit&id=<?php echo $data['id_kelas']; ?>" class="btn btn-warning btn-sm">
+                           Edit
+                        </a>
+                        <a href="?page=data_rt&action=hapus&id=<?php echo $data['id_kelas']; ?>" onclick="return confirm('Yakin ingin menghapus kelas ini ?');" class="btn btn-danger btn-sm">
+                           Hapus
+                        </a>
+                     </td> -->
+                  </tr>
+                  <?php
+               }
+            } else {
+
+               echo "<tr>
+                        <td colspan='4' style='text-align:center;'><h4>Belum ada data</h4></td>
+                     </tr>";
+            }
+            ?>
+         </tbody>
+      </table>
+   </div>
+</div>
+ 
+      </div>
+    </div>
+ 
+    <script src="./assets/js/bootstrap.min.js"></script>
+    <script src="./assets/js/jquery-2.2.3.min.js"></script>
+  </body>
 </html>

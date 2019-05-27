@@ -14,12 +14,12 @@ $periode = $thn.'/'.$dpn;
 $suara   = $_GET['s'] + 1;
 
 //update suara
-$update  = $con->prepare("UPDATE t_calon_rw SET suara = ? WHERE id_rw = ?") or die($con->error);
+$update  = $con->prepare("UPDATE t_calon_rt SET suara = ? WHERE id_rt = ?") or die($con->error);
 $update->bind_param('is', $suara, $_GET['id']);
 $update->execute();
 
 //simpan data pemilih
-$save = $con->prepare("INSERT INTO t_hasil_pemilih(nis, periode) VALUES(?,?)") or die($con->error);
+$save = $con->prepare("INSERT INTO t_hasil_pemilih_rt(nis, periode) VALUES(?,?)") or die($con->error);
 $save->bind_param('ss', $_SESSION['siswa'], $periode);
 $save->execute();
 

@@ -27,9 +27,10 @@ if(!isset($_SESSION['siswa'])) {
          $thn     = date('Y');
          $dpn     = date('Y') + 1;
          $periode = $thn.'/'.$dpn;
+         $kls = 'K01';
 
-         $sql = $con->prepare("SELECT * FROM t_calon_rw WHERE periode = ?") or die($con->error);
-         $sql->bind_param('s', $periode);
+         $sql = $con->prepare("SELECT * FROM t_calon_rt WHERE periode = ? && id_kelas = ? ") or die($con->error);
+         $sql->bind_param('ss', $periode,$kls);
          $sql->execute();
          $sql->store_result();
          if ($sql->num_rows() > 0) {
@@ -44,17 +45,17 @@ if(!isset($_SESSION['siswa'])) {
             echo '<div class="col-md-10 col-md-offset-1">';
 
                for ($i = 1; $i <= $numb; $i++) {
-                  $sql->bind_result($id, $nama, $foto, $visi, $misi, $suara, $periode);
+                  $sql->bind_result($id, $nama, $foto, $visi, $misi, $suara, $periode, $kls);
                   $sql->fetch();
          ?>
 
     <div class="row" style="margin-bottom:100px;">
         <div class="col-md-6">
             <center><h3>Calon RW No Urut<br>0<?php echo $i; ?></h3>
-                <img src="../assets/img/rw/<?php echo $foto; ?>" class="img-responsive img-thumbnail" />
+                <img src="../assets/img/rt/<?php echo $foto; ?>" class="img-responsive img-thumbnail" />
                 <p><h5><strong><?php echo $nama; ?></strong></h5></p>
                 <p>
-               <a href="../pemilih/visimisi.php?id=<?php echo $id; ?>" class="btn btn-primary" >Lihat Visi Misi <i class="glyphicon glyphicon-play"></i></a>
+               <a href="../pemilih_rt01/visimisi.php?id=<?php echo $id; ?>" class="btn btn-primary" >Lihat Visi Misi <i class="glyphicon glyphicon-play"></i></a>
                 </p>
                 <p>
                <a href="./submit.php?id=<?php echo $id; ?>&s=<?php echo $suara; ?>" class="btn btn-danger" >Beri Suara<i class="glyphicon glyphicon-play"></i></a>
