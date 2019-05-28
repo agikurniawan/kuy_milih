@@ -7,6 +7,7 @@
     <link href="./assets/css/dp.css" rel="stylesheet">
     <link rel="stylesheet" href="./assets/css/demo.css">
 	 <link rel="stylesheet" href="./assets/css/footer-basic-centered.css">
+    <link rel="stylesheet" href="./assets/css/home.css">
   </head>
   <body>
     <div class="container">
@@ -56,12 +57,37 @@
           </div><!--/.container-fluid -->
         </nav>
 
-
        
  
       </div>
 
     </div>
+
+      <div class="slider" style="padding-bottom:400px;">
+  <input type="radio" name="slider" title="slide1" checked="checked" class="slider__nav"/>
+  <input type="radio" name="slider" title="slide2" class="slider__nav"/>
+  <input type="radio" name="slider" title="slide3" class="slider__nav"/>
+  <input type="radio" name="slider" title="slide4" class="slider__nav"/>
+  <div class="slider__inner" style="padding-bottom:500px;">
+    <div class="slider__contents"><i class="slider__image fa fa-codepen"></i>
+      <h2 class="slider__caption">PEMILIHAN RT</h2>
+      <p class="slider__txt">Gunakan hak suara anda untuk memilih RT dan RW, untuk masa depan Rukun Tetangga dan Warga lebih baik!</p>
+    </div>
+    <div class="slider__contents"><i class="slider__image fa fa-newspaper-o"></i>
+      <h2 class="slider__caption">newspaper-o</h2>
+      <p class="slider__txt">Lihat hasil real count nya disini</p>
+    </div>
+    <div class="slider__contents"><i class="slider__image fa fa-television"></i>
+      <h2 class="slider__caption">television</h2>
+      <p class="slider__txt">Pantau jangan sampai ada kecurangan dintara kita</p>
+    </div>
+    <div class="slider__contents"><i class="slider__image fa fa-diamond"></i>
+      <h2 class="slider__caption">diamond</h2>
+      <p class="slider__txt">Pemimpin yang bersinar adalah pilihan anda</p>
+    </div>
+  </div>
+</div>
+
     <?php 
    include('./external/footer.php');    
       ?>

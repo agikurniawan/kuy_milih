@@ -53,7 +53,7 @@ if(!isset($_SESSION['siswa'])) {
     <div class="row" style="margin-bottom:100px;">
         <div class="col-md-6">
             <center><h3>Calon RW No Urut<br>0<?php echo $i; ?></h3>
-                <img src="../assets/img/rw/<?php echo $foto; ?>" class="img-responsive img-thumbnail" />
+                <img src="../assets/img/rw/<?php echo $foto; ?>" class="img-responsive img-thumbnail" style="width:200px;height:200px;"/>
                 <p><h5><strong><?php echo $nama; ?></strong></h5></p>
                 <p>
                <a href="../pemilih/visimisi.php?id=<?php echo $id; ?>" class="btn btn-primary" >Lihat Visi Misi <i class="glyphicon glyphicon-play"></i></a>
@@ -79,9 +79,12 @@ if(!isset($_SESSION['siswa'])) {
 
          echo '</div>';
          ?>
+         </div>
+         </div>
+         </div>
 
           <?php 
-   include('./external/footer.php');    
+   include('../external/footer.php');    
       ?>
          
     <script src="../assets/js/bootstrap.min.js"></script>
